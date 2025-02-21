@@ -1,0 +1,15 @@
+# Login Request
+POST http://localhost:8088/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+### Get Search (Without Token)
+GET http://localhost:8088/ficheros-arba/search
+
+### Get Search (With Token)
+GET http://localhost:8088/ficheros-arba/search
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjk5MjQwNSwiZXhwIjoxNzM2OTkyNDY1fQ.Xsekzq1WsQuLDvnpx-wBeObwi4RWN7SAigxhCbqalGrNLIrabxjIXeZrGT9E3Ry-V70A0Nb6lwGV3KaBUvYOWQ

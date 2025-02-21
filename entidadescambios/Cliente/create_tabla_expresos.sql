@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS winners.expresos
+(
+    codigo smallint NOT NULL,
+    nombre character(40) COLLATE pg_catalog."default",
+    domicilio character(35) COLLATE pg_catalog."default",
+    localidad character(25) COLLATE pg_catalog."default",
+    nuevocodpostal character(14) COLLATE pg_catalog."default",
+    jurisdiccion smallint,
+    pais smallint,
+    telefono character(30) COLLATE pg_catalog."default",
+    fax character(30) COLLATE pg_catalog."default",
+    horario character(40) COLLATE pg_catalog."default",
+    inactivo smallint,
+    string1 character(20) COLLATE pg_catalog."default",
+    string2 character(20) COLLATE pg_catalog."default",
+    long1 integer,
+    long2 integer,
+    byte1 smallint,
+    byte2 smallint,
+    decimal1 numeric(12,2),
+    decimal2 numeric(12,2),
+    exportadoalblock date,
+    documento integer,
+    obrasocial character(30) COLLATE pg_catalog."default",
+    nroafiliado character(30) COLLATE pg_catalog."default",
+    CONSTRAINT key01_expresos PRIMARY KEY (codigo)
+)

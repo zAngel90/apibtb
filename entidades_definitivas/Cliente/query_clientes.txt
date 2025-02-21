@@ -1,0 +1,81 @@
+select 
+'' as id_crm, --(este campo quizas es el que nos va a brindar el CRM como su id)
+c.codigo as legajo_numero,
+c.inactivo,
+c.apellido,
+c.nombre,
+'' as domicilio_calle_principal,
+'' as domicilio_numero_principal,
+'' as domicilio_piso_principal,
+'' as domicilio_dpto_principal,
+c.domicilio as domicilio_completo_principal,
+c.localidad as localidad_principal,
+c.nuevocodpostal as codigo_postal_principal,
+c.jurisdiccion as provincia_principal,
+j.nombre as provincia_principal_descripcion,
+c.pais as pais_principal,
+p.nombre as pais_principal_descripcion,
+c.telefono as telefono_principal,
+c.celular as celular_principal,
+c.e_mail as email_principal,
+c.enviofactmail as envio_factura_email_estado,
+c.destinatariofactmail as envio_factura_email_nombre,
+c.emailfactmail as envio_factura_email,
+c.tipoiva as situacion_iva_numero,
+simp.nombre as situacion_iva_descripcion,
+c.documento as documento_tipo,
+case
+        when c.documento = 0 then 'C.I. Policia Federal'
+        when c.documento = 99 then 'Venta Global Diaria/Sin Identificacion'
+		when c.documento = 96 then 'D.N.I.' 
+        when c.documento = 80 then 'C.U.I.T.' 
+		else 'Desconocido'
+    end as documento_descripcion,
+c.cuit as documento_numero,
+c.formapago as forma_pago_numero,
+fp.nombre as forma_pago_descripcion,
+c.fechaalta as fecha_alta,
+c.nombrefantasia as nombre_fantasia,
+c.listaprecios as lista_precio_numero,
+lp.nombre as lista_precio_descripcion,
+c.descuento,
+'' as domicilio_calle_lugar_entrega,
+'' as domicilio_numero_lugar_entrega,
+'' as domicilio_piso_lugar_entrega,
+'' as domicilio_dpto_lugar_entrega,
+c.entrega as domicilio_completo_lugar_entrega,
+'' as localidad_lugar_entrega,
+'' as codigo_postal_lugar_entrega,
+'' as provincia_lugar_entrega,
+'' as provincia_lugar_entrega_descripcion,
+'' as pais_lugar_entrega,
+'' as pais_lugar_entrega_descripcion,
+c.expreso as expreso_numero,
+e.nombre as expreso_descripcion,
+c.vendedor as vendedor_numero,
+lv.apellido as vendedor_descripcion,
+c.legajodeexportacion as legajo_de_exportacion_estado,
+c.generapedidosexportacion as genera_pedidos_exportacion_estado,
+c.omitircontrolexpblock as omitir_control_exportacion_block_estado,
+c.lejanoexpalblock as no_exporta_pedidos_block_estado,
+c.detallarpesopedidos as detallar_peso_pedidos_block_estado,
+c.tipobloqueo as bloqueo_tipo,
+c.motivobloqueo as bloqueo_motivo
+from winners.legajos c
+left join winners.jurisdic j
+on c.jurisdiccion = j.codigo
+left join winners.paises p
+on c.pais = p.codigo
+left join winners.sitdef sdef
+on c.tipoiva = sdef.tipoiva
+left join winners.sitimp simp
+on sdef.sitimpositivaventas = simp.codigo and simp.libroiva = 'VE'
+left join winners.forpago fp
+on c.formapago = fp.codigo
+left join winners.liprcabe lp
+on c.listaprecios = lp.codigo
+left join winners.expresos e
+on c.expreso = e.codigo
+left join winners.legajos lv
+on c.vendedor = lv.codigo and lv.clipro = 'VE'
+where c.clipro = 'CL' 

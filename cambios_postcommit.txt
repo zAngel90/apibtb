@@ -1,0 +1,265 @@
+ANÁLISIS Y DOCUMENTACIÓN DE CAMBIOS POST-COMMIT
+=============================================
+
+1. ANÁLISIS DETALLADO DE LA TABLA PVENTA
+---------------------------------------
+La tabla 'pventa' es una tabla maestra que gestiona la configuración completa de puntos de venta:
+
+a) Identificación y Datos Básicos:
+   - código (PK, integer, NOT NULL) - Identificador único del punto de venta
+   - nombre (character(20)) - Nombre descriptivo
+   - deposito (integer) - Depósito asociado
+   - tipovendedor (character(2)) - Tipo de vendedor asignado
+   - vendedor (integer) - Código del vendedor
+   - inactivo (smallint) - Estado del punto de venta
+
+b) Configuración de Facturación:
+   - Facturas A:
+     * factura_a (integer) - Numeración
+     * impresora_factura_a (character(40)) - Impresora asignada
+     * imprdir_factura_a (smallint) - Configuración de impresión
+     * imprimefacturaa (smallint) - Control de impresión
+
+   - Facturas B:
+     * factura_b (integer)
+     * impresora_factura_b (character(40))
+     * imprdir_factura_b (smallint)
+     * imprimefacturab (smallint)
+
+   - Facturas C:
+     * factura_c (integer)
+     * impresora_factura_c (character(40))
+     * imprdir_factura_c (smallint)
+
+   - Otras Facturas:
+     * factura_otras (integer)
+     * impresora_factura_otras (character(40))
+     * imprdir_factura_otras (smallint)
+
+c) Gestión de Notas de Crédito:
+   - Notas de Crédito A:
+     * usanotacreda (smallint)
+     * nc_a (integer)
+     * impresora_nc_a (character(40))
+     * imprdir_nc_a (smallint)
+
+   - Notas de Crédito B/C:
+     * Campos similares con sufijos _b y _c
+
+d) Gestión de Notas de Débito:
+   - Estructura similar a notas de crédito
+   - Campos prefijados con 'nd_' en lugar de 'nc_'
+
+e) Configuración de Otros Documentos:
+   - Recibos:
+     * recibo (integer)
+     * impresora_recibo (character(40))
+     * imprdir_recibo (smallint)
+
+   - Remitos:
+     * remito (integer)
+     * impresora_remito (character(40))
+     * imprdir_remito (smallint)
+
+   - Pedidos:
+     * pedido (integer)
+     * impresora_pedido (character(40))
+     * imprdir_pedido (smallint)
+
+f) Configuración Fiscal:
+   - usaimpresorafiscal (smallint)
+   - codigoimpresorafiscal (smallint)
+   - fiscal2dageneracion (smallint)
+   - ipimpresorafiscal (character(20))
+   - usawebservice (smallint)
+   - archivocertificado (character(60))
+   - archivoclave (character(60))
+
+g) Configuración de Diseño:
+   - diseniofacta (smallint)
+   - diseniofactb (smallint)
+   - diseniootrasfact (smallint)
+   - disenioremito (smallint)
+   - diseniopresup (smallint)
+   - diseniopedidovta (smallint)
+
+h) Campos de Personalización:
+   - Campos Genéricos:
+     * string1, string2 (character(20))
+     * long1, long2 (integer)
+     * byte1, byte2 (smallint)
+     * decimal1, decimal2 (numeric)
+
+   - Campos de Presentación:
+     * nombrefantasia1-5 (character(40))
+     * nombreotros1-5 (character(40))
+     * domiciliofiscal1-3 (character(40))
+     * domicilioreal1-3 (character(40))
+     * leyendacomercial1-2 (character(40))
+     * pie1-4 (character(40))
+
+i) Configuraciones Especiales:
+   - esecommerce (smallint)
+   - permitefamultipagina (smallint)
+   - permitefbmultipagina (smallint)
+   - pedidomultipagina (smallint)
+   - presupuestomultipagina (smallint)
+   - cantidadcopias (smallint)
+   - tiempoespera (smallint)
+   - controlarconexion (smallint)
+
+j) Campos Adicionales Identificados:
+   - Gestión de Documentos Adicionales:
+     * factcreditoa, factcreditob, factcreditoc (integer)
+     * ncfactcreditoa, ncfactcreditob, ncfactcreditoc (integer)
+     * ndfactcreditoa, ndfactcreditob, ndfactcreditoc (integer)
+   
+   - Configuración de Impresión Avanzada:
+     * imprimecodigoproducto (smallint)
+     * imprimeformapago (smallint)
+     * imprimemarco (smallint)
+     * imprimeremitodesdefactura (smallint)
+     * imprimeremitodesderemito (smallint)
+
+   - Configuración de Columnas:
+     * columnainscripto (smallint)
+     * columnanoinscripto (smallint)
+     * columnapercepcionesiva (smallint)
+     * columnaotraspercepciones (smallint)
+     * columnanogravado (smallint)
+
+2. ANÁLISIS DE LA ESTRUCTURA DE OPERACIONES
+-----------------------------------------
+Se identifican dos estructuras relacionadas que parecen ser vistas o consultas:
+
+a) Cabecera de Operaciones:
+   - Identificación:
+     * empresa (smallint)
+     * nrooperacion (integer)
+     * fecha (date)
+   
+   - Estado y Tipo:
+     * pendiente (smallint)
+     * tipomovimiento (character(4))
+     * tipooperacion (character(2))
+     * tipocomprobante (character(2))
+   
+   - Datos de Comprobante:
+     * letracomprobante (character(1))
+     * sucursalcomprobante (integer)
+     * numerocomprobante (integer)
+   
+   - Información del Cliente:
+     * clipro (character(2))
+     * legajo (integer)
+     * apelynom (text)
+   
+   - Importes y Moneda:
+     * importe_pendiente (numeric)
+     * importe_total (numeric)
+     * moneda (smallint)
+     * nombremoneda (character(25))
+     * cotizacion (numeric)
+
+b) Detalle de Operaciones:
+   - Identificación:
+     * empresa (smallint)
+     * nrooperacion (integer)
+     * fecha (date)
+   
+   - Estado:
+     * itempendiente (smallint)
+   
+   - Cliente:
+     * clipro (character(2))
+     * legajo (integer)
+     * apelynom (text)
+   
+   - Producto:
+     * producto (character)
+     * nombreproducto (character(70))
+   
+   - Cantidades:
+     * cantidad (numeric)
+     * cantidadpendiente (numeric)
+     * cantidaddevuelta (numeric)
+   
+   - Importes y Moneda:
+     * importependiente (numeric)
+     * importe_total (numeric)
+     * moneda (smallint)
+     * nombremoneda (character(25))
+     * cotizacion (numeric)
+
+3. IMPLICACIONES PARA LA IMPLEMENTACIÓN
+------------------------------------
+1. Estructura de Entidades:
+   - ConfiguracionPuntoVenta (pventa)
+   - OperacionCabecera (vista/consulta 1)
+   - OperacionDetalle (vista/consulta 2)
+
+2. Relaciones:
+   - Una Operación tiene una Cabecera y múltiples Detalles
+   - La Configuración del Punto de Venta afecta a todas las operaciones
+
+3. Consideraciones de Diseño:
+   - Implementar patrón Repository para cada entidad
+   - Usar DTOs específicos para cada vista
+   - Mantener la consistencia entre cabecera y detalles
+
+4. PRÓXIMOS PASOS
+----------------
+1. Implementar entidad base ConfiguracionPuntoVenta
+2. Crear repositorio de solo lectura
+3. Implementar servicios de consulta
+4. Desarrollar endpoints de configuración
+5. Documentar API
+6. Implementar caché
+
+5. NOTAS IMPORTANTES
+------------------
+- La tabla es fundamental para la operación del sistema
+- Requiere manejo cuidadoso de actualizaciones
+- Considerar implementación de caché
+- Necesita estrategia de respaldo y recuperación
+- Documentar todas las configuraciones posibles
+
+6. ENDPOINTS A IMPLEMENTAR
+------------------------
+1. Pedidos de Venta:
+   GET    /api/btb/pedidos
+   GET    /api/btb/pedidos/{id}
+   POST   /api/btb/pedidos
+   PUT    /api/btb/pedidos/{id}
+   DELETE /api/btb/pedidos/{id}
+
+2. Configuración:
+   GET    /api/btb/config/puntos-venta
+   GET    /api/btb/config/puntos-venta/{codigo}
+
+7. CONSIDERACIONES DE SEGURIDAD
+-----------------------------
+1. Validaciones:
+   - Verificar permisos por punto de venta
+   - Validar numeración de comprobantes
+   - Verificar configuración fiscal
+
+2. Auditoría:
+   - Logging de operaciones críticas
+   - Registro de cambios en documentos
+
+8. PRÓXIMOS PASOS
+----------------
+1. Implementar entidades base
+2. Crear repositorios y servicios
+3. Desarrollar endpoints REST
+4. Implementar validaciones
+5. Documentar API con Swagger
+6. Realizar pruebas unitarias e integración
+
+9. NOTAS ADICIONALES
+------------------
+- La tabla pventa es principalmente de configuración
+- Los pedidos de venta se manejarán a través de las vistas
+- Se debe mantener sincronización entre tablas y vistas
+- Considerar implementar caché para configuraciones 

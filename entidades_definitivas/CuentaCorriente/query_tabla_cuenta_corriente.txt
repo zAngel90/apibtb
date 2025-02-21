@@ -1,0 +1,19 @@
+select
+cc.empresa,
+cc.nrooperacion,
+cc.sector,
+cc.legajo as legajo_numero,
+cc.apellido,
+cc.nombre,
+cc.fecha,
+cc.vencimiento,
+cc.descripcion,
+cc.comprobante,
+cc.importe,
+cc.debe,
+cc.cancelado,
+cc.origen
+from winners.vw_m_ctacte cc 
+where
+cc.clipro = 'CL' 
+and cc.cuenta = 55

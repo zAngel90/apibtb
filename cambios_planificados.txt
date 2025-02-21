@@ -1,0 +1,225 @@
+CAMBIOS PLANIFICADOS PARA EL SISTEMA BTB
+=====================================
+
+1. ESTRUCTURA DE PERMISOS Y ACCESOS
+----------------------------------
+A. Entidades con Lectura y Escritura:
+   1. Cliente (CRUD completo)
+      - Alta de nuevos clientes
+      - Modificación de datos
+      - Consultas
+      - Baja lógica
+   
+   2. Pedidos de Venta (CRUD completo)
+      - Creación de pedidos
+      - Actualización de estados
+      - Consultas
+      - Posible GET (pendiente de confirmación)
+
+B. Entidades Solo Lectura:
+   1. Producto
+   2. Lista Precio
+   3. Costo
+   4. Cuenta Corriente
+   5. Stock
+   6. Factura
+   7. Formas de Pago
+   8. Jurisdicciones
+   9. Países
+   10. Situaciones por Defecto
+   11. Situaciones Impositivas
+   12. Expresos
+
+2. CAMBIOS EN LA ARQUITECTURA
+----------------------------
+A. Configuración de Base de Datos:
+   - Mantener todo en la misma base de datos
+   - Implementar control de acceso a nivel de servicio
+   - Usar anotaciones para diferenciar operaciones de lectura/escritura
+
+B. Estructura de Paquetes:
+   org.com.ar.api.btb/
+   ├── config/
+   │   └── DatabaseConfig.java (configuración unificada)
+   ├── entities/
+   │   ├── writable/
+   │   │   ├── Cliente.java
+   │   │   └── PedidoVenta.java
+   │   └── readonly/
+   │       ├── Producto.java
+   │       ├── ListaPrecio.java
+   │       ├── Costo.java
+   │       ├── CuentaCorriente.java
+   │       ├── Stock.java
+   │       ├── Factura.java
+   │       ├── FormaPago.java
+   │       ├── Jurisdiccion.java
+   │       ├── Pais.java
+   │       ├── SituacionDefecto.java
+   │       ├── SituacionImpositiva.java
+   │       └── Expreso.java
+   ├── repositories/
+   │   ├── writable/
+   │   │   ├── ClienteRepository.java
+   │   │   └── PedidoVentaRepository.java
+   │   └── readonly/
+   │       └── [Repositorios para entidades de solo lectura]
+   └── services/
+       ├── writable/
+       │   ├── ClienteService.java
+       │   └── PedidoVentaService.java
+       └── readonly/
+           └── [Servicios para entidades de solo lectura]
+
+3. ENTIDADES A IMPLEMENTAR
+-------------------------
+A. Entidades Principales:
+
+   1. Cliente (winners.legajos):
+      - Datos básicos del cliente
+      - Relaciones con:
+        * Jurisdicción
+        * País
+        * Situación Impositiva
+        * Forma de Pago
+        * Sucursales
+
+   2. Sucursal Cliente (winners.legasuc):
+      - Datos de sucursales
+      - Relación con cliente principal
+      - Relación con expreso
+
+   3. Producto (winners.producto):
+      - Información de productos
+      - Códigos y descripciones
+      - Precios y configuraciones
+
+   4. Lista de Precios:
+      - Cabecera (winners.liprcabe)
+      - Detalle (winners.liprdeta)
+      - Relación con productos
+
+B. Entidades de Soporte (Solo Lectura):
+
+   1. Forma de Pago (winners.forpago):
+      - Códigos y descripciones
+      - Configuraciones de pago
+
+   2. Jurisdicción (winners.jurisdic):
+      - Provincias/Estados
+      - Códigos fiscales
+
+   3. País (winners.paises):
+      - Catálogo de países
+      - Códigos internacionales
+
+   4. Situación por Defecto (winners.sitdef):
+      - Configuraciones predeterminadas
+      - Estados base
+
+   5. Situación Impositiva (winners.sitimp):
+      - Categorías fiscales
+      - Configuraciones impositivas
+
+   6. Expreso (winners.expresos):
+      - Empresas de transporte
+      - Datos de contacto y operación
+
+C. Nuevas Entidades del Sistema:
+
+   1. Costo (winners.prodval):
+      - Valuación de productos
+      - Costos nacionales y zona franca
+
+   2. Cuenta Corriente (winners.vw_m_ctacte):
+      - Movimientos financieros
+      - Estados de cuenta
+
+   3. Stock (winners.proddepo):
+      - Control de inventario
+      - Stock por depósito
+
+   4. Factura:
+      - Cabecera (winners.cabecomp)
+      - Detalles (winners.cabeprod)
+      - Relaciones completas
+
+   5. Pedidos de Venta:
+      - Estructura pendiente de definición
+      - Preparar para implementación futura
+
+4. RELACIONES Y DEPENDENCIAS
+--------------------------
+A. Cliente:
+   - → Jurisdicción (provincia)
+   - → País
+   - → Situación Impositiva
+   - → Forma de Pago
+   - ← Sucursales (1:N)
+
+B. Sucursal:
+   - → Cliente (N:1)
+   - → Expreso
+   - → Jurisdicción
+   - → País
+
+C. Producto:
+   - ← Lista de Precios (N:M)
+   - ← Stock (1:N)
+   - ← Costos (1:N)
+
+5. ENDPOINTS A IMPLEMENTAR
+------------------------
+A. Endpoints de Escritura:
+   1. Cliente:
+      - POST /clientes
+      - PUT /clientes/{id}
+      - PATCH /clientes/{id}/estado
+   
+   2. Pedidos:
+      - POST /pedidos
+      - PUT /pedidos/{id}
+      - GET /pedidos (pendiente confirmación)
+
+B. Endpoints de Lectura:
+   [Lista completa de endpoints solo lectura para cada entidad]
+
+6. SEGURIDAD Y VALIDACIONES
+--------------------------
+A. A nivel de Servicio:
+   - Validaciones de negocio para escritura
+   - Logs de operaciones de modificación
+   - Control de concurrencia
+
+B. A nivel de Controlador:
+   - Validación de permisos
+   - Documentación Swagger
+   - Manejo de errores específico
+
+7. PASOS DE IMPLEMENTACIÓN
+-------------------------
+1. Implementar entidades de soporte (solo lectura)
+2. Implementar entidades principales
+3. Configurar relaciones entre entidades
+4. Crear repositorios con permisos adecuados
+5. Implementar servicios con lógica de negocio
+6. Crear controladores con documentación
+7. Agregar pruebas unitarias
+8. Validar permisos y accesos
+
+8. CONSIDERACIONES ADICIONALES
+----------------------------
+- Mantener compatibilidad con sistema actual
+- Documentar todas las relaciones entre entidades
+- Implementar logs detallados para operaciones de escritura
+- Preparar estructura para futuras funcionalidades
+- Mantener coherencia en nombrado y estructura
+- Asegurar integridad referencial en todas las operaciones
+
+9. PENDIENTES DE CONFIRMACIÓN
+---------------------------
+- GET para pedidos de venta
+- Estructura específica de pedidos
+- Validaciones adicionales requeridas
+- Campos obligatorios por entidad
+- Reglas de negocio específicas por entidad 

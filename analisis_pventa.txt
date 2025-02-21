@@ -1,0 +1,199 @@
+ANÁLISIS DETALLADO DE LA ESTRUCTURA @PVENTA
+=========================================
+
+1. CAMPOS PRINCIPALES
+-------------------
+a) Identificación y Control:
+   - codigo (integer, NOT NULL) - Clave primaria
+   - nombre (character(20)) - Nombre del punto de venta
+   - deposito (integer) - Depósito asociado
+   - tipovendedor (character(2)) - Clasificación del vendedor
+   - vendedor (integer) - ID del vendedor
+   - inactivo (smallint) - Estado de activación
+
+b) Configuración de Impresoras:
+   - impresoraunica (smallint) - Indica si usa una sola impresora
+   - impresoracomprobantesdefault (character(40)) - Impresora predeterminada
+   - usaimpresorafiscal (smallint) - Habilita impresora fiscal
+   - codigoimpresorafiscal (smallint) - Código de impresora fiscal
+
+c) Numeración de Comprobantes:
+   - factura_a (integer) - Numeración facturas A
+   - factura_b (integer) - Numeración facturas B
+   - factura_c (integer) - Numeración facturas C
+   - factura_otras (integer) - Numeración otras facturas
+
+2. CONFIGURACIÓN DE IMPRESIÓN
+---------------------------
+a) Impresoras por Tipo de Comprobante:
+   - impresora_factura_a (character(40))
+   - impresora_factura_b (character(40))
+   - impresora_factura_c (character(40))
+   - impresora_factura_otras (character(40))
+
+b) Direccionamiento de Impresión:
+   - imprdir_factura_a (smallint)
+   - imprdir_fact_a_y_remito (smallint)
+   - imprdir_factura_b (smallint)
+   - imprdir_fact_b_y_remito (smallint)
+   - imprdir_factura_c (smallint)
+   - imprdir_fact_c_y_remito (smallint)
+   - imprdir_factura_otras (smallint)
+   - imprdir_fact_otras_y_remito (smallint)
+
+3. GESTIÓN DE NOTAS DE CRÉDITO
+-----------------------------
+a) Control de Uso:
+   - usanotacreda (smallint)
+   - usanotacredb (smallint)
+   - usanotacredc (smallint)
+   - usanotacredotras (smallint)
+
+b) Numeración:
+   - nc_a (integer)
+   - nc_b (integer)
+   - nc_c (integer)
+   - nc_otras (integer)
+
+c) Configuración de Impresión:
+   - impresora_nc_a (character(40))
+   - impresora_nc_b (character(40))
+   - impresora_nc_c (character(40))
+   - impresora_nc_otras (character(40))
+   - imprdir_nc_a (smallint)
+   - imprdir_nc_b (smallint)
+   - imprdir_nc_c (smallint)
+   - imprdir_nc_otras (smallint)
+
+4. GESTIÓN DE NOTAS DE DÉBITO
+----------------------------
+a) Control de Uso:
+   - usanotadeba (smallint)
+   - usanotadebb (smallint)
+   - usanotadebc (smallint)
+   - usanotadebotras (smallint)
+
+b) Numeración:
+   - nd_a (integer)
+   - nd_b (integer)
+   - nd_c (integer)
+   - nd_otras (integer)
+
+c) Configuración de Impresión:
+   - impresora_nd_a (character(40))
+   - impresora_nd_b (character(40))
+   - impresora_nd_c (character(40))
+   - impresora_nd_otras (character(40))
+   - imprdir_nd_a (smallint)
+   - imprdir_nd_b (smallint)
+   - imprdir_nd_c (smallint)
+   - imprdir_nd_otras (smallint)
+
+5. OTROS DOCUMENTOS Y OPERACIONES
+------------------------------
+a) Gestión de Pagos y Recibos:
+   - recibo (integer)
+   - pago (integer)
+   - impresora_recibo (character(40))
+   - impresora_pago (character(40))
+   - imprdir_recibo (smallint)
+   - imprdir_pago (smallint)
+
+b) Documentos Comerciales:
+   - entradafondos (integer)
+   - salidafondos (integer)
+   - remito (integer)
+   - pedido (integer)
+   - pedidocompra (integer)
+   - presupuesto (integer)
+   - produccion (integer)
+   - movimientostock (integer)
+
+c) Impresoras Asociadas:
+   - impresora_remito (character(40))
+   - impresora_pedido (character(40))
+   - impresora_pedidocompra (character(40))
+   - impresora_presupuesto (character(40))
+   - impresora_produccion (character(40))
+   - impresora_stock (character(40))
+
+d) Direccionamiento:
+   - imprdir_remito (smallint)
+   - imprdir_pedido (smallint)
+   - imprdir_pedidocompra (smallint)
+   - imprdir_presupuesto (smallint)
+   - imprdir_produccion (smallint)
+
+6. CONFIGURACIÓN FISCAL Y WEB SERVICES
+-----------------------------------
+a) Web Services:
+   - usawebservice (smallint)
+   - archivocertificado (character(60))
+   - archivoclave (character(60))
+   - tiempoespera (smallint)
+   - controlarconexion (smallint)
+
+b) Campos Genéricos:
+   - string1, string2 (character(20))
+   - long1, long2 (integer)
+   - byte1, byte2 (smallint)
+   - decimal1, decimal2 (numeric)
+
+7. CAMPOS ADICIONALES Y ESPECÍFICOS
+--------------------------------
+a) Preventa:
+   - preventa (integer)
+   - impresora_preventa (character(40))
+   - impresoradir_preventa (smallint)
+
+b) Configuración AFIP:
+   - wsmtxca (smallint)
+   - archivointercambiowsmtxca (character(80))
+   - fechafincert (integer)
+
+c) Diseño de Documentos:
+   - diseniofacta (smallint)
+   - diseniofactb (smallint)
+   - diseniootrasfact (smallint)
+   - disenioremito (smallint)
+   - diseniopresup (smallint)
+   - diseniopedidovta (smallint)
+   - diseniopedidocpra (smallint)
+
+8. CARACTERÍSTICAS ESPECIALES
+--------------------------
+a) Configuración E-commerce:
+   - esecommerce (smallint)
+   - remitor (integer)
+   - remitopordefecto (character(1))
+
+b) Opciones de Impresión:
+   - permitefamultipagina (smallint)
+   - permitefbmultipagina (smallint)
+   - pedidomultipagina (smallint)
+   - presupuestomultipagina (smallint)
+
+c) Configuración Adicional:
+   - centrocostoasociado (integer)
+   - tipofactura (character(2))
+   - fiscal2dageneracion (smallint)
+   - ipimpresorafiscal (character(20))
+   - familiaimpresora (character(1))
+
+OBSERVACIONES IMPORTANTES
+-----------------------
+1. Estructura Compleja:
+   - La tabla maneja múltiples aspectos de configuración
+   - Alta densidad de campos relacionados con impresión
+   - Soporte para múltiples tipos de documentos
+
+2. Consideraciones Técnicas:
+   - Todos los campos (excepto código) permiten NULL
+   - Predominio de tipos smallint para flags
+   - Uso extensivo de campos character con longitud fija
+
+3. Puntos de Atención:
+   - Gestión de numeración de documentos
+   - Configuración fiscal y de impresoras
+   - Manejo de múltiples tipos de comprobantes
+   - Integración con servicios web AFIP 

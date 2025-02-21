@@ -1,0 +1,10 @@
+select
+pd.deposito as deposito_numero,
+d.nombre as deposito_descripcion,
+pd.producto as sku,
+pd.stockactual as stock_actual,
+pd.inmovilizado as stock_inmovilizado,
+(pd.stockactual-pd.inmovilizado) as stock_disponible
+from winners.proddepo pd
+left join winners.deposito d
+on pd.deposito = d.codigo

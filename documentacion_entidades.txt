@@ -1,0 +1,136 @@
+DOCUMENTACIÓN DE ENTIDADES BTB
+================================
+
+Fecha: [Fecha actual]
+Base de datos: DatosBTB
+Schema: winners
+
+1. ENTIDAD PEDIDOS
+-----------------
+Tabla Principal: winners.cabeprod
+- Campos Principales:
+  * empresa (smallint) - PK
+  * nrooperacion (integer) - PK
+  * renglon (smallint) - PK
+  * fecha (date)
+  * deposito (integer)
+  * legajo (integer)
+  * sublegajo (integer)
+  * producto (character(14))
+  * cantidad (numeric(16,4))
+  * descuento (numeric(5,2))
+  * listaprecios (smallint)
+  * inmoviliza (smallint)
+  * precioscongelados (smallint)
+
+Tabla Relacionada: winners.cabeprpa
+- Campos Principales:
+  * empresa (smallint) - PK
+  * nrooperacion (integer) - PK
+  * renglon (integer) - PK
+  * itemrenglon (integer) - PK
+  * producto (character(14))
+  * deposito (integer)
+  * cantidad (numeric(16,4))
+  * cantidadoriginal (numeric(16,4))
+  * cantidaddevuelta (numeric(16,4))
+  * cantidadfacturada (numeric(16,4))
+  * cantidadpendiente (numeric(16,4))
+
+2. ENTIDAD STOCK
+---------------
+Tabla Principal: winners.proddepo
+- Campos Principales:
+  * deposito (integer)
+  * producto (character(14)) - sku
+  * stockactual (numeric)
+  * inmovilizado (numeric)
+  * stock_disponible (calculado: stockactual - inmovilizado)
+
+Tabla Relacionada: winners.deposito
+- Proporciona información adicional del depósito
+- Relación: proddepo.deposito = deposito.codigo
+
+3. ENTIDAD COSTO
+---------------
+Tabla: winners.prodval
+- Campos Principales:
+  * fecha (date)
+  * producto (character(14)) - sku
+  * valuacion (numeric) - costo_nacional
+  * valuaciondepfis (numeric) - costo_zona_franca
+
+4. ENTIDAD FACTURA
+-----------------
+Tabla Principal: winners.cabecomp
+- Campos Principales:
+  * empresa (smallint)
+  * nrooperacion (integer)
+  * tipooperacion (character)
+  * tipomovimiento (character)
+  * fecha (date)
+  * origen (character)
+  * tipocomprobante (character)
+  * letracomprobante (character)
+  * sucursalcomprobante (integer)
+  * numerocomprobante (integer)
+  * legajo (integer)
+  * nombre (character)
+  * importe_neto (numeric)
+  * importe_total (numeric)
+
+Tabla Detalle: winners.cabeprod
+- Relacionada con cabecomp para detalles de productos facturados
+
+5. ENTIDAD CUENTA CORRIENTE
+--------------------------
+Tabla Principal: winners.m_ctacte
+- Campos Principales:
+  * empresa (smallint) - PK
+  * nrooperacion (integer) - PK
+  * sector (character(1)) - PK
+  * renglonoperacion (smallint) - PK
+  * renglon (smallint) - PK
+  * clipro (character(2))
+  * legajo (integer)
+  * sublegajo (integer)
+  * fecha (date)
+  * vencimiento (date)
+  * importe (numeric(12,2))
+  * debe (numeric(12,2))
+  * pagado (numeric(12,2))
+  * saldocontable (numeric(14,2))
+  * cancelado (smallint)
+  * moneda (smallint)
+  * cotizacion (numeric(10,4))
+
+6. ENTIDAD FORMAS DE PAGO
+------------------------
+Tabla: winners.forpago
+- Campos Principales:
+  * codigo (smallint) - PK
+  * nombre (character(30)) - UK
+  * cuotas (smallint)
+  * periodicidad (character(1))
+  * intervalo (smallint)
+  * primervenc (smallint)
+  * pagodirecto (smallint)
+  * diacierre (smallint)
+  * inactivo (smallint)
+  * diasacreditacion (smallint)
+
+NOTAS IMPORTANTES
+----------------
+1. Todas las tablas existen en el schema 'winners'
+2. No es necesario crear nuevas tablas
+3. Se deben mapear las estructuras existentes
+4. Mantener las relaciones y constraints existentes
+5. Considerar los índices existentes para optimización
+
+PRÓXIMOS PASOS
+-------------
+1. Crear las entidades en Java
+2. Mapear las relaciones entre entidades
+3. Implementar los repositorios
+4. Crear los servicios necesarios
+5. Desarrollar los endpoints de la API 

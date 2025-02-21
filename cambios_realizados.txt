@@ -1,0 +1,88 @@
+CAMBIOS REALIZADOS EN EL PROYECTO
+================================
+
+Fecha: [Fecha actual]
+
+1. Modificación de Entidad Producto a Solo Lectura
+------------------------------------------------
+- Se modificó la entidad Producto para que sea de solo lectura
+- Ubicación: src/main/java/org/com/ar/api/btb/entities/Producto.java
+- Cambios realizados:
+  * Se agregó la anotación @Immutable de Hibernate
+  * Esta anotación previene cualquier operación de escritura en la base de datos
+  * La entidad mantiene todas sus propiedades pero ahora es inmutable
+
+2. Modificación del Controlador de Productos
+------------------------------------------
+- Se modificó el controlador para que solo permita operaciones de lectura
+- Ubicación: src/main/java/org/com/ar/api/btb/controller/ProductoController.java
+- Cambios realizados:
+  * Se eliminaron todos los endpoints de escritura:
+    - DELETE /api/btb/productos/{codigo}
+    - POST /api/btb/productos
+    - PUT /api/btb/productos/{codigo}
+    - PATCH /api/btb/productos/{codigo}/inactivar
+    - PATCH /api/btb/productos/{codigo}/activar
+  * Se mantuvieron solo los endpoints de lectura:
+    - GET /api/btb/productos
+    - GET /api/btb/productos/{codigo}
+    - GET /api/btb/productos/search
+    - GET /api/btb/productos/activos
+  * Se actualizó la descripción del controlador para indicar que es de solo lectura
+
+3. Justificación de los Cambios
+------------------------------
+- Los productos ahora son entidades de solo lectura que no pueden ser modificadas a través de la API
+- Esto previene modificaciones accidentales o no autorizadas en la base de datos
+- La gestión de productos se realizará a través de otros medios (por ejemplo, directamente en la base de datos o mediante procesos batch)
+
+4. Endpoints Disponibles y sus Funciones
+--------------------------------------
+1. GET /api/btb/productos
+   - Descripción: Obtener lista paginada de todos los productos
+   - Parámetros: Paginación estándar (page, size, sort)
+
+2. GET /api/btb/productos/{codigo}
+   - Descripción: Obtener un producto específico por su código
+   - Parámetros: código (String)
+
+3. GET /api/btb/productos/search
+   - Descripción: Buscar productos por nombre de venta
+   - Parámetros: 
+     * nombreVenta (String, opcional)
+     * Paginación estándar
+
+4. GET /api/btb/productos/activos
+   - Descripción: Obtener lista paginada de productos activos
+   - Parámetros: Paginación estándar
+   - Filtros aplicados: inactivo = 0 y noVenta = 0
+
+5. Entidades Pendientes de Implementación
+---------------------------------------
+1. Entidad Costo
+   - Descripción: Manejo de costos de productos
+   - Archivo de referencia: entidadescambios/Costo/query_tabla_costo.txt
+
+2. Entidad CuentaCorriente
+   - Descripción: Gestión de cuentas corrientes de clientes
+   - Archivo de referencia: entidadescambios/CuentaCorriente/query_tabla_cuenta_corriente.txt
+
+3. Entidad Factura
+   - Descripción: Gestión de facturas
+   - Archivo de referencia: entidadescambios/Factura/query_tabla_factura.txt
+
+4. Entidad Pedido
+   - Descripción: Manejo de pedidos
+   - Archivo de referencia: entidadescambios/Pedido/query_tabla_pedidos_alta.txt
+
+5. Entidad Stock
+   - Descripción: Control de inventario
+   - Archivo de referencia: entidadescambios/Stock/query_tabla_stock.txt
+
+6. Entidad FormaPago
+   - Descripción: Gestión de formas de pago
+   - Archivo de referencia: entidadescambios/Cliente/create_tabla_forpago.sql
+
+
+
+   

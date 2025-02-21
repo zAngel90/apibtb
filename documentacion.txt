@@ -1,0 +1,219 @@
+RESUMEN DEL PROYECTO
+===================
+Este backend fue desarrollado para gestionar clientes y sus sucursales, siguiendo los requerimientos específicos del sistema BTB. El desarrollo se realizó en las siguientes etapas:
+
+1. Análisis Inicial
+------------------
+- Se identificó la necesidad de migrar el sistema existente a una API REST moderna
+- Se analizó la estructura de datos existente en la base de datos PostgreSQL
+- Se definieron los requerimientos principales: gestión de clientes y sucursales
+
+2. Desarrollo Implementado
+-------------------------
+- Se creó una API REST usando Spring Boot 3.x
+- Se mantiene la compatibilidad con la base de datos existente (schema 'winners')
+- Se implementó la gestión completa de clientes con el campo 'clipro' siempre en "CL"
+- Se desarrolló la gestión de sucursales vinculadas a clientes
+- Se agregaron endpoints de prueba para verificar la conexión y estructura
+
+3. Características Principales
+----------------------------
+- Autenticación mediante JWT para seguridad
+- Paginación en endpoints de listado
+- Manejo automático de campos de auditoría (created_at, updated_at)
+- Validaciones de datos en ambas entidades
+- Cascade delete para mantener integridad referencial
+- Documentación mediante Swagger/OpenAPI
+
+4. Flujo de Trabajo
+------------------
+a) Gestión de Clientes:
+   - Creación de clientes con número de legajo único
+   - Asignación automática de "CL" como clipro
+   - Activación/desactivación de clientes
+   - Búsqueda por documento o legajo
+
+b) Gestión de Sucursales:
+   - Vinculación automática con cliente principal
+   - Código de sucursal único por cliente
+   - Activación/desactivación independiente
+   - Eliminación en cascada si se elimina el cliente
+
+5. Estado Actual
+---------------
+- Base de datos configurada y funcionando
+- Tablas creadas y verificadas
+- Endpoints operativos y probados
+- Documentación completa disponible
+- Sistema listo para pruebas con datos reales
+
+DOCUMENTACIÓN DE LA API BTB
+==========================
+
+1. GESTIÓN DE CLIENTES
+---------------------
+Base URL: http://localhost:8088/api/btb/clientes
+
+Endpoints disponibles:
+
+GET /api/btb/clientes
+- Descripción: Lista todos los clientes
+- Paginado: Sí
+- Parámetros opcionales: page, size, sort
+
+GET /api/btb/clientes/{legajoNumero}
+- Descripción: Obtiene un cliente específico por su número de legajo
+- Parámetros: legajoNumero (obligatorio)
+
+GET /api/btb/clientes/buscar
+- Descripción: Busca clientes por tipo y número de documento
+- Parámetros: 
+  * documentoTipo (query)
+  * documentoNumero (query)
+
+POST /api/btb/clientes
+- Descripción: Crea un nuevo cliente
+- Body: Objeto Cliente (JSON)
+- Nota: El campo clipro se establece automáticamente como "CL"
+
+PUT /api/btb/clientes/{legajoNumero}
+- Descripción: Actualiza un cliente existente
+- Parámetros: legajoNumero (obligatorio)
+- Body: Objeto Cliente (JSON)
+
+DELETE /api/btb/clientes/{legajoNumero}
+- Descripción: Elimina un cliente
+- Parámetros: legajoNumero (obligatorio)
+
+PATCH /api/btb/clientes/{legajoNumero}/activar
+- Descripción: Activa un cliente
+- Parámetros: legajoNumero (obligatorio)
+
+PATCH /api/btb/clientes/{legajoNumero}/desactivar
+- Descripción: Desactiva un cliente
+- Parámetros: legajoNumero (obligatorio)
+
+2. GESTIÓN DE SUCURSALES
+------------------------
+Base URL: http://localhost:8088/api/btb/sucursales
+
+Endpoints disponibles:
+
+GET /api/btb/sucursales/cliente/{legajoNumero}
+- Descripción: Lista todas las sucursales de un cliente específico
+- Parámetros: legajoNumero (obligatorio)
+
+GET /api/btb/sucursales/{id}
+- Descripción: Obtiene una sucursal específica
+- Parámetros: id (obligatorio)
+
+POST /api/btb/sucursales
+- Descripción: Crea una nueva sucursal
+- Body: Objeto ClienteSucursal (JSON)
+
+PUT /api/btb/sucursales/{id}
+- Descripción: Actualiza una sucursal existente
+- Parámetros: id (obligatorio)
+- Body: Objeto ClienteSucursal (JSON)
+
+DELETE /api/btb/sucursales/{id}
+- Descripción: Elimina una sucursal
+- Parámetros: id (obligatorio)
+
+PATCH /api/btb/sucursales/{id}/activar
+- Descripción: Activa una sucursal
+- Parámetros: id (obligatorio)
+
+PATCH /api/btb/sucursales/{id}/desactivar
+- Descripción: Desactiva una sucursal
+- Parámetros: id (obligatorio)
+
+3. ENDPOINTS DE PRUEBA
+---------------------
+Base URL: http://localhost:8088/api/btb/test
+
+GET /api/btb/test/conexion
+- Descripción: Verifica la conexión a la base de datos
+- Respuesta: Mensaje de éxito o error
+
+GET /api/btb/test/verificar-tablas
+- Descripción: Verifica la existencia de las tablas del sistema
+- Respuesta: Lista de tablas y su estado de existencia
+
+GET /api/btb/test/listar-tablas
+- Descripción: Lista todas las tablas del esquema winners
+- Respuesta: Array con nombres de tablas
+
+4. ESTRUCTURA DE LA BASE DE DATOS
+--------------------------------
+Schema: winners
+
+Tabla: clientes
+- legajo_numero (BIGINT, PK)
+- clipro (CHAR(2), default 'CL')
+- razon_social (VARCHAR(100))
+- nombre_fantasia (VARCHAR(100))
+- documento_tipo (VARCHAR(20))
+- documento_numero (VARCHAR(20))
+- direccion (VARCHAR(100))
+- localidad (VARCHAR(100))
+- codigo_postal (VARCHAR(20))
+- telefono (VARCHAR(50))
+- email (VARCHAR(100))
+- activo (BOOLEAN, default true)
+- created_at (TIMESTAMP)
+- updated_at (TIMESTAMP)
+
+Tabla: cliente_sucursales
+- id (BIGSERIAL, PK)
+- legajo_numero (BIGINT, FK)
+- codigo_sucursal (INTEGER)
+- nombre (VARCHAR(100))
+- direccion (VARCHAR(100))
+- localidad (VARCHAR(100))
+- codigo_postal (VARCHAR(20))
+- telefono (VARCHAR(50))
+- email (VARCHAR(100))
+- activo (BOOLEAN, default true)
+- created_at (TIMESTAMP)
+- updated_at (TIMESTAMP)
+
+5. EJEMPLOS DE USO
+-----------------
+
+1. Crear un nuevo cliente:
+POST http://localhost:8088/api/btb/clientes
+{
+    "legajoNumero": 1,
+    "razonSocial": "Empresa Ejemplo",
+    "documentoTipo": "CUIT",
+    "documentoNumero": "30123456789",
+    "direccion": "Calle Ejemplo 123",
+    "localidad": "Ciudad Ejemplo",
+    "codigoPostal": "1234",
+    "telefono": "11-1234-5678",
+    "email": "contacto@empresa.com"
+}
+
+2. Crear una sucursal para el cliente:
+POST http://localhost:8088/api/btb/sucursales
+{
+    "cliente": {
+        "legajoNumero": 1
+    },
+    "codigoSucursal": 1,
+    "nombre": "Sucursal Central",
+    "direccion": "Av Principal 456",
+    "localidad": "Ciudad Ejemplo",
+    "codigoPostal": "1234",
+    "telefono": "11-5678-1234",
+    "email": "sucursal@empresa.com"
+}
+
+6. NOTAS IMPORTANTES
+-------------------
+1. Todos los endpoints están protegidos por autenticación JWT
+2. Las respuestas de error incluyen mensajes descriptivos
+3. La paginación está disponible en los endpoints de listado
+4. Los campos created_at y updated_at se manejan automáticamente
+5. Las eliminaciones de clientes cascadean a sus sucursales 

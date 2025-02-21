@@ -1,0 +1,239 @@
+codigo	integer		NO
+nombre	character	20	YES
+deposito	integer		YES
+tipovendedor	character	2	YES
+vendedor	integer		YES
+inactivo	smallint		YES
+impresoraunica	smallint		YES
+impresoracomprobantesdefault	character	40	YES
+usaimpresorafiscal	smallint		YES
+codigoimpresorafiscal	smallint		YES
+factura_a	integer		YES
+factura_b	integer		YES
+factura_c	integer		YES
+factura_otras	integer		YES
+impresora_factura_a	character	40	YES
+impresora_factura_b	character	40	YES
+impresora_factura_c	character	40	YES
+impresora_factura_otras	character	40	YES
+imprdir_factura_a	smallint		YES
+imprdir_fact_a_y_remito	smallint		YES
+imprdir_factura_b	smallint		YES
+imprdir_fact_b_y_remito	smallint		YES
+imprdir_factura_c	smallint		YES
+imprdir_fact_c_y_remito	smallint		YES
+imprdir_factura_otras	smallint		YES
+imprdir_fact_otras_y_remito	smallint		YES
+usanotacreda	smallint		YES
+nc_a	integer		YES
+usanotacredb	smallint		YES
+nc_b	integer		YES
+usanotacredc	smallint		YES
+nc_c	integer		YES
+usanotacredotras	smallint		YES
+nc_otras	integer		YES
+impresora_nc_a	character	40	YES
+impresora_nc_b	character	40	YES
+impresora_nc_c	character	40	YES
+impresora_nc_otras	character	40	YES
+imprdir_nc_a	smallint		YES
+imprdir_nc_b	smallint		YES
+imprdir_nc_c	smallint		YES
+imprdir_nc_otras	smallint		YES
+usanotadeba	smallint		YES
+nd_a	integer		YES
+usanotadebb	smallint		YES
+nd_b	integer		YES
+usanotadebc	smallint		YES
+nd_c	integer		YES
+usanotadebotras	smallint		YES
+nd_otras	integer		YES
+impresora_nd_a	character	40	YES
+impresora_nd_b	character	40	YES
+impresora_nd_c	character	40	YES
+impresora_nd_otras	character	40	YES
+imprdir_nd_a	smallint		YES
+imprdir_nd_b	smallint		YES
+imprdir_nd_c	smallint		YES
+imprdir_nd_otras	smallint		YES
+recibo	integer		YES
+pago	integer		YES
+impresora_recibo	character	40	YES
+impresora_pago	character	40	YES
+imprdir_recibo	smallint		YES
+imprdir_pago	smallint		YES
+entradafondos	integer		YES
+salidafondos	integer		YES
+remito	integer		YES
+pedido	integer		YES
+pedidocompra	integer		YES
+presupuesto	integer		YES
+produccion	integer		YES
+movimientostock	integer		YES
+impresora_remito	character	40	YES
+impresora_pedido	character	40	YES
+impresora_pedidocompra	character	40	YES
+impresora_presupuesto	character	40	YES
+impresora_produccion	character	40	YES
+impresora_stock	character	40	YES
+imprdir_remito	smallint		YES
+imprdir_pedido	smallint		YES
+imprdir_pedidocompra	smallint		YES
+imprdir_presupuesto	smallint		YES
+imprdir_produccion	smallint		YES
+fabricacion	integer		YES
+impresora_fabricacion	character	40	YES
+imprdir_fabricacion	smallint		YES
+usawebservice	smallint		YES
+archivocertificado	character	60	YES
+archivoclave	character	60	YES
+tiempoespera	smallint		YES
+controlarconexion	smallint		YES
+string1	character	20	YES
+string2	character	20	YES
+long1	integer		YES
+long2	integer		YES
+byte1	smallint		YES
+byte2	smallint		YES
+decimal1	numeric		YES
+decimal2	numeric		YES
+preventa	integer		YES
+impresora_preventa	character	40	YES
+impresoradir_preventa	smallint		YES
+wsmtxca	smallint		YES
+archivointercambiowsmtxca	character	80	YES
+diseniofacta	smallint		YES
+diseniofactb	smallint		YES
+diseniootrasfact	smallint		YES
+disenioremito	smallint		YES
+diseniopresup	smallint		YES
+diseniopedidovta	smallint		YES
+diseniopedidocpra	smallint		YES
+fechafincert	integer		YES
+esecommerce	smallint		YES
+remitor	integer		YES
+remitopordefecto	character	1	YES
+permitefamultipagina	smallint		YES
+permitefbmultipagina	smallint		YES
+centrocostoasociado	integer		YES
+tipofactura	character	2	YES
+factcreditoa	integer		YES
+factcreditob	integer		YES
+factcreditoc	integer		YES
+ncfactcreditoa	integer		YES
+ncfactcreditob	integer		YES
+ncfactcreditoc	integer		YES
+ndfactcreditoa	integer		YES
+ndfactcreditob	integer		YES
+ndfactcreditoc	integer		YES
+fiscal2dageneracion	smallint		YES
+ipimpresorafiscal	character	20	YES
+familiaimpresora	character	1	YES
+imprimecodigoproducto	smallint		YES
+imprimeformapago	smallint		YES
+imprimefacturaa	smallint		YES
+imprimefacturab	smallint		YES
+columnainscripto	smallint		YES
+columnanoinscripto	smallint		YES
+columnapercepcionesiva	smallint		YES
+columnaotraspercepciones	smallint		YES
+columnanogravado	smallint		YES
+nombrefantasia1	character	40	YES
+nombrefantasia1destacado	smallint		YES
+nombrefantasia2	character	40	YES
+nombrefantasia2destacado	smallint		YES
+nombrefantasia3	character	40	YES
+nombrefantasia3destacado	smallint		YES
+nombrefantasia4	character	40	YES
+nombrefantasia4destacado	smallint		YES
+nombrefantasia5	character	40	YES
+nombrefantasia5destacado	smallint		YES
+nombreotros1	character	40	YES
+nombreotros1destacado	smallint		YES
+nombreotros2	character	40	YES
+nombreotros2destacado	smallint		YES
+nombreotros3	character	40	YES
+nombreotros3destacado	smallint		YES
+nombreotros4	character	40	YES
+nombreotros4destacado	smallint		YES
+nombreotros5	character	40	YES
+nombreotros5destacado	smallint		YES
+fechainicioactividades	character	40	YES
+fechainicioactividadesdestacado	smallint		YES
+domiciliofiscal1	character	40	YES
+domiciliofiscal1destacado	smallint		YES
+domiciliofiscal2	character	40	YES
+domiciliofiscal2destacado	smallint		YES
+domiciliofiscal3	character	40	YES
+domiciliofiscal3destacado	smallint		YES
+domicilioreal1	character	40	YES
+domicilioreal1destacado	smallint		YES
+domicilioreal2	character	40	YES
+domicilioreal2destacado	smallint		YES
+domicilioreal3	character	40	YES
+domicilioreal3destacado	smallint		YES
+leyendacomercial1	character	40	YES
+leyendacomercial1destacado	smallint		YES
+leyendacomercial2	character	40	YES
+leyendacomercial2destacado	smallint		YES
+pie1	character	40	YES
+pie1destacado	smallint		YES
+pie2	character	40	YES
+pie2destacado	smallint		YES
+pie3	character	40	YES
+pie3destacado	smallint		YES
+pie4	character	40	YES
+pie4destacado	smallint		YES
+imprimenotascreditoa	smallint		YES
+imprimenotascreditob	smallint		YES
+imprimeremitodesdefactura	smallint		YES
+imprimeremitodesderemito	smallint		YES
+cantidadcopias	smallint		YES
+imprimirmarco	smallint		YES
+tipocomprobanteemision	character	2	YES
+usawsbf	smallint		YES
+lince	smallint		YES
+manguera	integer		YES
+ordtrab	integer		YES
+esdf	smallint		YES
+remitomultipagina	smallint		YES
+pedidomultipagina	smallint		YES
+presupuestomultipagina	smallint		YES
+
+la segunda consulta , tiene esto ; 
+
+empresa	smallint		YES
+nrooperacion	integer		YES
+fecha	date		YES
+pendiente	smallint		YES
+tipomovimiento	character	4	YES
+tipooperacion	character	2	YES
+tipocomprobante	character	2	YES
+letracomprobante	character	1	YES
+sucursalcomprobante	integer		YES
+numerocomprobante	integer		YES
+clipro	character	2	YES
+legajo	integer		YES
+apelynom	text		YES
+importe_pendiente	numeric		YES
+importe_total	numeric		YES
+moneda	smallint		YES
+nombremoneda	character	25	YES
+cotizacion	numeric		YES
+empresa	smallint		YES
+nrooperacion	integer		YES
+fecha	date		YES
+itempendiente	smallint		YES
+clipro	character	2	YES
+legajo	integer		YES
+apelynom	text		YES
+producto	character		YES
+nombreproducto	character	70	YES
+cantidad	numeric		YES
+cantidadpendiente	numeric		YES
+cantidaddevuelta	numeric		YES
+importependiente	numeric		YES
+importe_total	numeric		YES
+moneda	smallint		YES
+nombremoneda	character	25	YES
+cotizacion	numeric		YES

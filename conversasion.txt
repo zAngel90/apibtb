@@ -1,0 +1,10 @@
+ veo que pusiste entidades que no van
+
+Hace 2 horas
+las entidades son todas las que estan en la carpeta Entidades de la raiz del proyecto. Y las entidades son Cliente, Costo, CuentaCorriente, Factura, ListaPrecio, Pedido, Producto y Stock
+
+Hace 2 horas
+pero veo que agregaste Legajos, Expresos, Formas de Pago, Jurisdicciones, Paises, Situaciones Impositiva y Situaciones por defecto
+
+Hace 2 horas
+estas no tienen que ser entidades o endpoint porque son cosas internas de la base de datos que no quiero mostrar

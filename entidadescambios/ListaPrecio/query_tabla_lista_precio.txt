@@ -1,0 +1,8 @@
+select 
+ld.lista as lista_precio,
+lp.nombre as lista_precio_descripcion,
+ld.producto as producto,
+ld.precio as precio
+from winners.liprdeta ld
+left join winners.liprcabe lp
+on lp.codigo = ld.lista

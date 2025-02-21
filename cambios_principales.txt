@@ -1,0 +1,89 @@
+CAMBIOS PRINCIPALES REALIZADOS EN EL SISTEMA
+========================================
+
+1. IMPLEMENTACIÓN DE FORMAS DE PAGO
+----------------------------------
+
+a) Estructura Base:
+   - Se implementó la entidad FormaPago en el paquete entities.readonly
+   - Se creó el repositorio FormaPagoRepository
+   - Se desarrolló el servicio FormaPagoService
+   - Se implementó el controlador FormaPagoController
+
+b) Funcionalidades CRUD:
+   - Obtener todas las formas de pago (GET /api/btb/formas-pago)
+   - Obtener forma de pago por código (GET /api/btb/formas-pago/{codigo})
+   - Crear nueva forma de pago (POST /api/btb/formas-pago)
+   - Actualizar forma de pago (PUT /api/btb/formas-pago/{codigo})
+   - Eliminar forma de pago (DELETE /api/btb/formas-pago/{codigo})
+   - Activar forma de pago (PATCH /api/btb/formas-pago/{codigo}/activar)
+   - Desactivar forma de pago (PATCH /api/btb/formas-pago/{codigo}/desactivar)
+
+c) Implementación de DTOs:
+   - Se creó FormaPagoDTO para la transferencia de datos
+   - Se implementó FormaPagoMapper para la conversión entre entidad y DTO
+   - Se agregó documentación Swagger en los DTOs
+
+d) Mejoras en el Servicio:
+   - Manejo de transacciones con @Transactional
+   - Validaciones de existencia
+   - Control de estados activo/inactivo
+   - Manejo de errores con excepciones personalizadas
+
+2. ESTRUCTURA DEL PROYECTO
+-------------------------
+
+a) Organización de Paquetes:
+   - entities.readonly: Entidades de solo lectura
+   - repositories.readonly: Repositorios para entidades readonly
+   - services: Servicios de negocio
+   - controllers.readonly: Controladores para endpoints readonly
+   - dto: Data Transfer Objects
+   - mapper: Conversores entre entidades y DTOs
+
+b) Configuración:
+   - Implementación de anotaciones JPA
+   - Configuración de Swagger/OpenAPI
+   - Manejo de transacciones
+   - Validaciones de datos
+
+3. DOCUMENTACIÓN
+---------------
+
+a) Swagger/OpenAPI:
+   - Documentación detallada de endpoints
+   - Descripción de operaciones
+   - Ejemplos de uso
+   - Esquemas de datos
+
+b) Código:
+   - Comentarios explicativos en clases principales
+   - Documentación de métodos importantes
+   - Explicación de lógica de negocio
+
+4. SEGURIDAD Y VALIDACIONES
+--------------------------
+
+a) Validaciones:
+   - Verificación de existencia de registros
+   - Validación de datos de entrada
+   - Control de estados
+
+b) Transacciones:
+   - Manejo de transacciones en operaciones críticas
+   - Rollback en caso de errores
+
+5. PRÓXIMOS PASOS SUGERIDOS
+---------------------------
+
+a) Implementaciones Pendientes:
+   - Implementar más validaciones de negocio
+   - Agregar logs para seguimiento de operaciones
+   - Implementar manejo de excepciones personalizado
+   - Mejorar la documentación de la API
+
+b) Mejoras Técnicas:
+   - Optimizar consultas a base de datos
+   - Implementar caché donde sea necesario
+   - Agregar pruebas unitarias
+   - Mejorar la seguridad de la API 

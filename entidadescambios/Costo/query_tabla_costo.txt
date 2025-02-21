@@ -1,0 +1,6 @@
+select 
+v.fecha,
+v.producto as sku,
+v.valuacion as costo_nacional,
+v.valuaciondepfis as costo_zona_franca
+from winners.prodval v

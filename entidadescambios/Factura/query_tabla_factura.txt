@@ -1,0 +1,81 @@
+select
+cc.empresa as empresa_factura,
+cc.nrooperacion as empresa_nrooperacion,
+cc.tipooperacion as tipo_operaacion_factura,
+cc.tipomovimiento as tipo_movimiento_factura,
+cc.fecha as fecha_factura,
+cc.origen as origen_factura,
+cc.tipocomprobante as tipo_factura,
+cc.letracomprobante as letra_factura,
+cc.sucursalcomprobante as punto_venta_factura,
+cc.numerocomprobante as numero_factura,
+cc.legajo as legajo_numero_factura,
+cc.nombre as legajo_nombre_factura,
+cc.sublegajo as legajo_sucursal,
+cc.domicilio as domicilio_factura,
+cc.localidad as localidad_factura,
+cc.nuevocodpostal as codigo_postal_factura,
+cc.jurisdiccion as provincia_numero_factura,
+j.nombre as provincia_descripcion_factura,
+cc.pais as pais_numero_factura,
+p.nombre as pais_descripcion_factura,
+cc.documento as documento_tipo_factura,
+case
+        when cc.documento = 0 then 'C.I. Policia Federal'
+        when cc.documento = 99 then 'Venta Global Diaria/Sin Identificacion'
+		when cc.documento = 96 then 'D.N.I.' 
+        when cc.documento = 80 then 'C.U.I.T.' 
+		else 'Desconocido'
+    end as documento_descripcion_factura,
+cc.cuit as documento_numero_factura,
+cc.vendedor as vendedor_numero_factura,
+v.apellido as vendedor_nombre_factura,
+cc.deposito as deposito_numero_factura,
+d.nombre as deposito_descripcion_factura,
+cc.listaprecios as lista_precio_numero_factura,
+lp.nombre as lista_precio_descripcion_factura,
+cc.descuento as descuento_factura,
+cc.expreso as expreso_numero_factura,
+e.nombre as expreso_descripcion_factura,
+cc.entrega as domicilio_entrega_factura,
+cc.importe_neto as importe_neto_factura,
+cc.importe_descuentos as importe_descuentos_factura,
+cc.importe_total as importe_total_factura,
+cc.fechavencimiento as vencimiento_factura,
+cc.moneda as moneda_factura,
+cc.cotizacion as cotizacion_factura,
+cc.long1 as cae_fecha_factura,
+cc.string1 as cae_numero_factura,
+cc.facturapdf as factura_pdf_nombre,
+cc.formapago as forma_pago_factura,
+cc.sitimpositiva as situacion_impositiva_factura,
+cp.producto as sku_producto,
+cp.nombre as sku_nombre_producto,
+cp.descuento as descuento_producto,
+cp.cantidad as cantidad_producto,
+cp.preciounitario as precio_unitario_producto,
+cp.importesindescuento as importe_sin_descuento_producto,
+cp.importedescuento as importe_descuento_producto,
+cp.importecondescuento as importe_con_descuento_producto,
+cp.descuentorecargo as descuento_recargo_producto,
+cp.importe_neto as importe_neto_producto,
+cp.importe_total as importe_total_producto
+from winners.cabecomp cc
+left join winners.cabeprod cp
+on cc.empresa = cp.empresa and cc.nrooperacion = cp.nrooperacion
+left join winners.jurisdic j
+on cc.jurisdiccion = j.codigo
+left join winners.paises p
+on cc.pais = p.codigo
+left join winners.legajos v
+on cc.tipovendedor = v.clipro and cc.vendedor = v.codigo
+left join winners.deposito d
+on cc.deposito = d.codigo
+left join winners.liprcabe lp
+on cc.listaprecios = lp.codigo
+left join winners.expresos e
+on cc.expreso = e.codigo
+where cc.clipro = 'CL'
+and cc.tipooperacion = 'VE'
+and cc.tipomovimiento = 'FACT'
+and cc.origen = 'FACT'
